@@ -1,4 +1,3 @@
-
 export interface Attraction {
   id: string;
   name: string;
@@ -35,6 +34,8 @@ export interface Activity {
   pricing: string;
   practicalTips: string;
   image: string;
+  coordinates?: string;
+  accessibility?: 'facile' | 'moyen' | 'difficile';
 }
 
 export const topAttractions: Attraction[] = [
@@ -228,6 +229,7 @@ export const topAttractions: Attraction[] = [
       lng: 42.8833
     },
     accessibility: 'facile',
+    bestPeriod: 'Octobre à mars',
     practicalTips: [
       'Ne pas manquer la mosquée Cheik Hamadou, la plus ancienne du pays',
       'Point de départ idéal pour explorer le nord et les montagnes',
@@ -311,7 +313,9 @@ export const activities: Activity[] = [
     providers: ['Dolphin Club', 'Djibouti Diving', 'Siyyan Travel'],
     pricing: '50-100€ pour une plongée avec équipement',
     practicalTips: 'Réservation à l\'avance recommandée. Certification PADI/SSI nécessaire pour les plongées profondes.',
-    image: 'https://images.unsplash.com/photo-1518877593221-1f28583780b4'
+    image: 'https://images.unsplash.com/photo-1518877593221-1f28583780b4',
+    coordinates: '11.7144° N, 43.1462° E',
+    accessibility: 'moyen'
   },
   {
     id: 'activity-2',
@@ -322,7 +326,9 @@ export const activities: Activity[] = [
     providers: ['Dolphin Club', 'Diving Djibouti', 'Planète Mer'],
     pricing: '80-150€ par personne pour une excursion journée',
     practicalTips: 'Réservation à l\'avance fortement recommandée pendant la haute saison. Aucune expérience de plongée nécessaire, le snorkeling suffit.',
-    image: 'https://images.unsplash.com/photo-1518877593221-1f28583780b4'
+    image: 'https://images.unsplash.com/photo-1518877593221-1f28583780b4',
+    coordinates: '11.7833° N, 42.8833° E',
+    accessibility: 'facile'
   },
   {
     id: 'activity-3',
@@ -333,7 +339,9 @@ export const activities: Activity[] = [
     providers: ['Discover Djibouti', 'Terres Extrêmes', 'Guides locaux'],
     pricing: '40-80€ par personne pour une journée avec guide',
     practicalTips: 'Guide local recommandé pour la plupart des randonnées. Prévoir eau, protection solaire et chaussures adaptées.',
-    image: 'https://images.unsplash.com/photo-1472396961693-142e6e269027'
+    image: 'https://images.unsplash.com/photo-1472396961693-142e6e269027',
+    coordinates: '11.7667° N, 42.6333° E',
+    accessibility: 'moyen'
   },
   {
     id: 'activity-4',
@@ -344,7 +352,9 @@ export const activities: Activity[] = [
     providers: ['La plupart des hôtels côtiers', 'Clubs de plongée'],
     pricing: '20-40€ pour la location d\'équipement et transport en bateau',
     practicalTips: 'Crème solaire résistante à l\'eau et protection contre le soleil indispensables. Même les débutants peuvent profiter pleinement de cette activité.',
-    image: 'https://images.unsplash.com/photo-1517627043994-b991abb62fc8'
+    image: 'https://images.unsplash.com/photo-1517627043994-b991abb62fc8',
+    coordinates: '11.7144° N, 43.1462° E',
+    accessibility: 'facile'
   }
 ];
 
@@ -370,40 +380,3 @@ export const features: Feature[] = [
 ];
 
 export const categories = [
-  {
-    id: 'nature',
-    name: 'Nature',
-    icon: 'mountain',
-    description: 'Paysages volcaniques, lacs salés et formations géologiques uniques'
-  },
-  {
-    id: 'culture',
-    name: 'Culture',
-    icon: 'landmark',
-    description: 'Traditions ancestrales, marchés colorés et patrimoine historique'
-  },
-  {
-    id: 'adventure',
-    name: 'Aventure',
-    icon: 'compass',
-    description: 'Randonnées, plongée sous-marine et excursions en 4x4'
-  },
-  {
-    id: 'beach',
-    name: 'Plages',
-    icon: 'anchor',
-    description: 'Plages de sable blanc et baies idylliques aux eaux cristallines'
-  },
-  {
-    id: 'geology',
-    name: 'Géologie',
-    icon: 'layers',
-    description: 'Formations volcaniques, failles tectoniques et phénomènes géologiques'
-  },
-  {
-    id: 'urban',
-    name: 'Villes',
-    icon: 'building',
-    description: 'Centres urbains, architecture et expériences urbaines'
-  }
-];
