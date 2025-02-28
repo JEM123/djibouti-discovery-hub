@@ -3,9 +3,10 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeatureCard from "@/components/FeatureCard";
 import AttractionCard from "@/components/AttractionCard";
+import ActivityCard from "@/components/ActivityCard";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
-import { features, topAttractions, categories } from "@/lib/data";
+import { features, topAttractions, categories, activities } from "@/lib/data";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -63,11 +64,11 @@ const Index = () => {
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => (
               <AnimatedSection key={category.id} delay={index * 100}>
                 <Link
-                  to="#"
+                  to={`/explorer?category=${category.id}`}
                   className="block group h-full rounded-2xl p-6 bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="flex items-center justify-between mb-6">
@@ -117,6 +118,30 @@ const Index = () => {
             {topAttractions.slice(0, 6).map((attraction, index) => (
               <AnimatedSection key={attraction.id} delay={index * 100}>
                 <AttractionCard attraction={attraction} index={index} />
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Activities Section */}
+      <section className="py-20 px-6 md:px-12 bg-secondary/30">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                Activités <span className="text-shimmer">Incontournables</span>
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Des expériences uniques à vivre lors de votre séjour à Djibouti, pour des souvenirs inoubliables.
+              </p>
+            </div>
+          </AnimatedSection>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {activities.map((activity, index) => (
+              <AnimatedSection key={activity.id} delay={index * 100}>
+                <ActivityCard activity={activity} index={index} />
               </AnimatedSection>
             ))}
           </div>

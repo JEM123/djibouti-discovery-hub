@@ -4,9 +4,10 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { topAttractions } from "@/lib/data";
-import { ArrowLeft, MapPin, Star, Clock, CalendarDays } from "lucide-react";
+import { ArrowLeft, MapPin, Star } from "lucide-react";
 import AnimatedSection from '@/components/AnimatedSection';
 import AttractionCard from '@/components/AttractionCard';
+import PracticalInfo from '@/components/PracticalInfo';
 
 const AttractionDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +15,7 @@ const AttractionDetail = () => {
     topAttractions.find(a => a.id === id) || null
   );
   const [relatedAttractions, setRelatedAttractions] = useState(
-    topAttractions.filter(a => a.id !== id).slice(0, 3)
+    topAttractions.filter(a => a.id !== id && a.category === attraction?.category).slice(0, 3)
   );
   
   const [scrollY, setScrollY] = useState(0);
@@ -30,8 +31,14 @@ const AttractionDetail = () => {
 
   // Update attraction when id changes
   useEffect(() => {
-    setAttraction(topAttractions.find(a => a.id === id) || null);
-    setRelatedAttractions(topAttractions.filter(a => a.id !== id).slice(0, 3));
+    const currentAttraction = topAttractions.find(a => a.id === id) || null;
+    setAttraction(currentAttraction);
+    
+    if (currentAttraction) {
+      setRelatedAttractions(
+        topAttractions.filter(a => a.id !== id && a.category === currentAttraction.category).slice(0, 3)
+      );
+    }
     
     // Scroll to top when attraction changes
     window.scrollTo(0, 0);
@@ -146,51 +153,7 @@ const AttractionDetail = () => {
           <div className="lg:col-span-1">
             <AnimatedSection>
               <div className="sticky top-32">
-                <div className="rounded-2xl overflow-hidden bg-white shadow-md border border-border">
-                  <div className="p-6">
-                    <h3 className="font-display text-xl font-semibold mb-6">
-                      Informations pratiques
-                    </h3>
-                    
-                    <div className="space-y-4">
-                      <div className="flex items-start">
-                        <MapPin className="h-5 w-5 text-ocean-600 mt-0.5 mr-3" />
-                        <div>
-                          <h4 className="font-medium mb-1">Localisation</h4>
-                          <p className="text-muted-foreground text-sm">
-                            {attraction.location}, République de Djibouti
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start">
-                        <Clock className="h-5 w-5 text-ocean-600 mt-0.5 mr-3" />
-                        <div>
-                          <h4 className="font-medium mb-1">Meilleure période</h4>
-                          <p className="text-muted-foreground text-sm">
-                            Novembre à Mars (saison fraîche)
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start">
-                        <CalendarDays className="h-5 w-5 text-ocean-600 mt-0.5 mr-3" />
-                        <div>
-                          <h4 className="font-medium mb-1">Durée recommandée</h4>
-                          <p className="text-muted-foreground text-sm">
-                            1 journée complète
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6 bg-primary/5 border-t border-border">
-                    <button className="w-full py-3 rounded-xl bg-ocean-600 hover:bg-ocean-700 text-white font-medium transition-colors">
-                      Ajouter à mon itinéraire
-                    </button>
-                  </div>
-                </div>
+                <PracticalInfo attraction={attraction} />
               </div>
             </AnimatedSection>
           </div>
@@ -207,11 +170,19 @@ const AttractionDetail = () => {
           </AnimatedSection>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {relatedAttractions.map((attraction, index) => (
-              <AnimatedSection key={attraction.id} delay={index * 100}>
-                <AttractionCard attraction={attraction} index={index} />
-              </AnimatedSection>
-            ))}
+            {relatedAttractions.length > 0 ? (
+              relatedAttractions.map((attraction, index) => (
+                <AnimatedSection key={attraction.id} delay={index * 100}>
+                  <AttractionCard attraction={attraction} index={index} />
+                </AnimatedSection>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-8">
+                <p className="text-muted-foreground">
+                  Aucune attraction similaire trouvée
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
