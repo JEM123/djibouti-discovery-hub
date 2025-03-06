@@ -1,7 +1,5 @@
 
-// This file is kept for backward compatibility
-// It re-exports everything from the new structure
-
+// Re-export all data from their respective files
 export * from './types';
 export * from './attractions';
 export * from './activities';
